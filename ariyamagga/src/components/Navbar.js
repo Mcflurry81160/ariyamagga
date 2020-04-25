@@ -1,4 +1,7 @@
 import React from "react";
+import Home from './Home';
+import About from './About';
+import Gallery from './Gallery';
 import {
     BrowserRouter as Router,
     Switch,
@@ -6,7 +9,7 @@ import {
     Link
 } from 'react-router-dom'
 
-function Navbar() {
+function Navbar()  {
     return (
         <Router>
             <div>
@@ -18,7 +21,7 @@ function Navbar() {
                         <Link to="/about">About</Link>
                     </li>
                     <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/gallery">Gallery</Link>
                     </li>
                 </ul>
 
@@ -31,36 +34,12 @@ function Navbar() {
                     <Route path="/about">
                         <About />
                     </Route>
-                    <Route path="/dashboard">
-                        <Dashboard />
+                    <Route path="/gallery">
+                        <Gallery />
                     </Route>
                 </Switch>
             </div>
         </Router>
-    );
-}
-
-function Home() {
-    return (
-        <div>
-            <h2>Home</h2>
-        </div>
-    );
-}
-
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
-        </div>
-    );
-}
-
-function Dashboard() {
-    return (
-        <div>
-            <h2>Dashboard</h2>
-        </div>
     );
 }
 
