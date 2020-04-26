@@ -3,7 +3,9 @@ import React from 'react';
 function About() {
     return (
         <div>
-            <h2>About Ariyamagga</h2>
+            <h2>About</h2>
+            {/* <p>විද්‍යා දදාති විනයං</p>
+            <p>ජපුර</p> */}
         </div>
     );
 }

@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
+    <head>
+      <meta charset="UTF-8"/>
+    </head>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

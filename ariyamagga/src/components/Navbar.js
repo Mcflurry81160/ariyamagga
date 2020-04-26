@@ -8,25 +8,17 @@ import {
     Route,
     Link
 } from 'react-router-dom'
+import './Navbar.css';
 
-function Navbar()  {
+function Navbar() {
     return (
         <Router>
             <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about">About this</Link>
-                    </li>
-                    <li>
-                        <Link to="/gallery">Gallery</Link>
-                    </li>
-                </ul>
-
-                <hr />
-
+                <div className="Navbar">
+                    <a href="#home"><Link to="/">Home</Link></a>
+                    <a href="#about"><Link to="/about">About</Link></a>
+                    <a href="#gallery"><Link to="/gallery">Gallery</Link></a>
+                </div>
                 <Switch>
                     <Route exact path="/">
                         <Home />
