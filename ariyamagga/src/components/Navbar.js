@@ -20,15 +20,11 @@ function Navbar() {
                     <a href="#gallery"><Link to="/gallery">Gallery</Link></a>
                 </div>
                 <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/about">
-                        <About />
-                    </Route>
-                    <Route path="/gallery">
-                        <Gallery />
-                    </Route>
+                    <Route exact path="/"><Home /></Route>
+                    <Route exact path="/home"><Home /></Route>
+                    <Route path="/about"><About /></Route>
+                    <Route path="/gallery"><Gallery /></Route>
+                    <Route exact path="*"><Home /></Route>
                 </Switch>
             </div>
         </Router>
