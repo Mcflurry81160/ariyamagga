@@ -1,9 +1,10 @@
 import React from 'react';
+import './Header.css';
 
 function Header() {
     return (
-        <div>
-            <h3>අරියමග්ග සෙනසුණ</h3>
+        <div className="header">
+            <h3>අරියමග්ග සෙනසුන</h3>
             <h3>Ariyamagga Senasuna</h3>
         </div>
     );
