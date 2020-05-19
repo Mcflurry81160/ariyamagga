@@ -1,13 +1,13 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-logo {
+.app-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-.App-content {
+.app-content {
     background-color: #e2e0dc;
     display: flex;
     min-height: 100vh;
@@ -15,6 +15,7 @@
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
-    font-size: calc(8px + 2vmin);
+    /* font-size: calc(8px + 2vmin); */
+    font-size: 16px;
     color: rgb(42, 39, 39);
 }

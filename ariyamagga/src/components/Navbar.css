@@ -10,5 +10,15 @@
 
 .navbar {
   width: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
+ul li.focused{
+  color:#fff;
+  background-color:#41c7c2;
+}
+
+ul li {
+  list-style-type: none;
+}

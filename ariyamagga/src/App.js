@@ -5,12 +5,12 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App container-fluid">
+    <div className="app container-fluid">
       <header>
         <Header />
       </header>
-      <body className="App-content">
-        <Navbar />
+      <body className="app-content">
+        <Navbar items = {['About', 'Contact']} />
       </body>
     </div>
   );
