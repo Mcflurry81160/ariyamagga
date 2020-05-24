@@ -15,10 +15,22 @@
 }
 
 ul li.focused{
-  color:#fff;
-  background-color:#41c7c2;
+  margin: 15px;
 }
 
-ul li {
+ul {
   list-style-type: none;
+  display: inline-block;
+}
+
+li { 
+  display: inline-block;
+  padding: 10px;
+}
+
+li:hover {
+  background-color: #c4ad7e;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 2000ms;
 }

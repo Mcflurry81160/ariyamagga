@@ -10,7 +10,7 @@ function App() {
         <Header />
       </header>
       <body className="app-content">
-        <Navbar items = {['About', 'Contact']} />
+        <Navbar items = {['About', 'Gallery', 'Contact']} />
       </body>
     </div>
   );

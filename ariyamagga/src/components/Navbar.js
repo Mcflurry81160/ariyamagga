@@ -19,14 +19,6 @@ class Navbar extends React.Component {
         this.state =  {
             focused: 0
         }
-
-        
-
-        // var state = {
-        //     focused: 0
-        // };
-
-        // this.setState(state);
     }
 
     clicked(index) {
