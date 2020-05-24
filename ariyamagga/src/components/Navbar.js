@@ -3,12 +3,9 @@ import React from "react";
 // import About from './About';
 // import Gallery from './Gallery';
 // import Contact from './Contact';
-// import {
-//     BrowserRouter as Router,
-//     Switch,
-//     Route,
-//     Link
-// } from 'react-router-dom'
+import {
+    Link
+} from 'react-router-dom'
 import './Navbar.css';
 
 
@@ -16,17 +13,16 @@ class Navbar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state =  {
+        // this.setState({focused: 0});
+
+        this.state = {
             focused: 0
         }
     }
 
     clicked(index) {
-
-        var state = {
-            focused: index
-        };
-        this.setState(state);
+        console.log('in clicked', index);
+        // this.setState({focused: index});
     }
 
     render() {
@@ -34,12 +30,12 @@ class Navbar extends React.Component {
             <div>
                 <ul>
                     {this.props.items.map(function(item, index) {
-                        var style = '';
-                        if (true) {
-                            style = 'focused'
+                        if (this.state.focused === index) {
+                            console.log('selected', index);
                         }
-                    return <li className={style}>{item}</li>
-                    })}
+                    return <li key={index} onClick={this.clicked(index)}><Link to=''>{item}</Link></li>
+                    //use this to bind to outer this
+                    }, this)}
                 </ul>
             </div>);
     }
