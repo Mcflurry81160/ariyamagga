@@ -1,8 +1,4 @@
 import React from "react";
-// import Home from './Home';
-// import About from './About';
-// import Gallery from './Gallery';
-// import Contact from './Contact';
 import {
     Link
 } from 'react-router-dom'
@@ -13,33 +9,30 @@ class Navbar extends React.Component {
     constructor(props) {
         super(props);
 
-        // this.setState({focused: 0});
-
-        this.state = {
-            focused: 0
-        }
+        this.state = {focused:0};
     }
 
-    clicked(index) {
-        console.log('in clicked', index);
-        // this.setState({focused: index});
+    clicked(event, index) {
+        event.stopPropagation();
+        this.setState({focused: index});
     }
 
     render() {
         return (
             <div>
                 <ul>
-                    {this.props.items.map(function(item, index) {
+                    {this.props.items.map((item, index) => 
+                    {
+                        var focusedStyle = '';
                         if (this.state.focused === index) {
-                            console.log('selected', index);
-                        }
-                    return <li key={index} onClick={this.clicked(index)}><Link to=''>{item}</Link></li>
+                            focusedStyle = 'focused'
+                    }
+                    return <li className={focusedStyle} key={item.itemIndex} onClick={event => this.clicked(event, index)}><Link to={item.navbarLinkPath}>{item.itemName}</Link></li>
                     //use this to bind to outer this
-                    }, this)}
+                    })}
                 </ul>
             </div>);
     }
 }
-
 
 export default Navbar;
