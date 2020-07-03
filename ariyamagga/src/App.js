@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import About from './components/About';
-// import Gallery from './Gallery';
+import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/"><About /></Route>
             <Route path="/about"><About /></Route>
+            <Route path="/gallery"><Gallery /></Route>
             <Route path="/contact"><Contact /></Route>
           </Switch>
         </Router>
