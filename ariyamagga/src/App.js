@@ -3,9 +3,9 @@ import './App.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import About from './components/About';
-import Gallery from './components/Gallery';
-import Contact from './components/Contact';
+import AboutPage from './components/AboutPage';
+import GalleryPage from './components/GalleryPage';
+import CotactPage from './components/ContactPage';
 
 function App() {
   return (
@@ -15,10 +15,10 @@ function App() {
         <Router>
           <Navbar items={GetNavBarItems()} />
           <Switch>
-            <Route exact path="/"><About /></Route>
-            <Route path="/about"><About /></Route>
-            <Route path="/gallery"><Gallery /></Route>
-            <Route path="/contact"><Contact /></Route>
+            <Route exact path="/"><AboutPage /></Route>
+            <Route path="/about"><AboutPage /></Route>
+            <Route path="/gallery"><GalleryPage /></Route>
+            <Route path="/contact"><CotactPage /></Route>
           </Switch>
         </Router>
       </div>

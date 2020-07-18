@@ -1,0 +1,11 @@
+.input-basic {
+    vertical-align: top;
+    display: inline-block;
+    width: 400px;
+}
+
+.label-basic {
+    width: 100px;
+    padding-right: 10px;
+    vertical-align: top;
+}

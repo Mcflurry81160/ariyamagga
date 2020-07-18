@@ -1,6 +1,6 @@
 import React from 'react';
 
-function About() {
+function AboutPage() {
     return (
         <div className="container">
             <h3>Welcome to Ariyamagga Senasuna</h3>
@@ -12,4 +12,4 @@ function About() {
     );
 }
 
-export default About;
+export default AboutPage;
