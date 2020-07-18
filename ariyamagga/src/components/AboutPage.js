@@ -3,7 +3,7 @@ import React from 'react';
 function AboutPage() {
     return (
         <div className="container">
-            <h3>Welcome to Ariyamagga Senasuna</h3>
+            <h3>Welcome to Ariyamagga Senasuna Githmi</h3>
             <p >Situated about 3KM from the Kurunegala clock tower/city centre, The place was set up in 2007 to provide temporary accommodation to those forest monks from various parts of the Kurunegala district seeking treatment at the medical facilities in Kurunegala.</p>
             <p>It is mostly used by the meditating monks of Na Uyana aranya where over 150 Ven Bhikkhus,both local and foreign, are residing</p>
             <p>The idea was a  brainchild of most Venerable late Na-Uyane Ariyadamma Maha Thero.Mr.Bandara Prematilake (Bandara Mahattaya)  got the wind of it and decided to offer their family ancestral home to the Buddha Sasan a for this noble purpose. The incumbent monk Ven. Kamburugamuwe Wimalaratane was entrusted with the task of serving the Maha Sangha by running the place. </p>
