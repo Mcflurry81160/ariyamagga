@@ -5,7 +5,7 @@ export default class DonatePage extends React.Component {
     render() {
         return (
             <div>
-                Donate page content here...
+                Expect donate page content here in the near future...
             </div>
         )
     }
