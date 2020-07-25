@@ -25,7 +25,6 @@ export default class ContactPage extends React.Component {
                     <button className="btn btn-primary">Submit Message</button>
                 </form>
             </div>
-
         )
     }
 }
