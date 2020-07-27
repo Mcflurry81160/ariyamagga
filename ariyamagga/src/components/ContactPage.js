@@ -40,15 +40,13 @@ export default class ContactPage extends React.Component {
             });
     }
 
-
-
     render() {
         const Form = () => {
 
             return (
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label className="label-basic">First Name Y:</label>
+                        <label className="label-basic">First Name:</label>
                         <input type="text" className="form-control input-basic" placeholder="Enter first name" name="firstName" value={this.state.firstName} onChange={this.handleChange}></input>
                     </div>
                     <div className="form-group">
