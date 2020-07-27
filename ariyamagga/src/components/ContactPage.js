@@ -27,7 +27,7 @@ export default class ContactPage extends React.Component {
         event.preventDefault();
         this.setState({ isLoading: true });
 
-        fetch('/api/SendEmail',
+        fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
             {
                 crossDomain: true,
                 method: 'GET'
