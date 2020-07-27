@@ -12,13 +12,6 @@ class GalleryPage extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let url = '';
-        fetch(url)
-            .then(response => response.json())
-            .then(imageUrls => this.setState({ imageUrls: imageUrls }))
-    }
-
     render() {
 
         return (

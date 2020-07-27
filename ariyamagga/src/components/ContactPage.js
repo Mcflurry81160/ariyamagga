@@ -10,8 +10,9 @@ export default class ContactPage extends React.Component {
             lastName: '',
             email: '',
             message: '',
-            isLoading: 'false',
-            statusText: ''
+            isLoading: false,
+            submitted: false,
+            statusText: null
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,16 +33,19 @@ export default class ContactPage extends React.Component {
                 method: 'GET'
             })
             .then((response) => response.text())
-            .then(data => this.setState({statusText: data}))
+            .then(data => this.setState({ statusText: data }))
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false });
+                this.setState({ isLoading: false, submitted: true });
             });
     }
 
+
+
     render() {
-        return (
-            <div>
+        const Form = () => {
+
+            return (
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label className="label-basic">First Name Y:</label>
@@ -60,8 +64,18 @@ export default class ContactPage extends React.Component {
                         <textarea type="text" className="form-control input-basic" id="message" placeholder="Enter message" name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                     </div>
                     <input type="submit" className="btn btn-primary" value="Submit form"></input>
-                </form>
+                </form>);
+        }
+
+        const FormSubmittedText = () => {
+            return (
                 <div>{this.state.statusText}</div>
+            );
+        }
+
+        return (
+            <div>
+                {this.state.submitted ? <FormSubmittedText /> : <Form />}
             </div>
         )
     }
