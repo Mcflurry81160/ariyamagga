@@ -37,12 +37,6 @@ export default class ContactPage extends React.Component {
             .finally(() => {
                 this.setState({ isLoading: false });
             });
-
-        //trigger azure function to send the email
-        console.log("clicked submit button", this.state.firstName);
-        console.log("clicked submit button", this.state.lastName);
-        console.log("clicked submit button", this.state.email);
-        console.log("clicked submit button", this.state.message);
     }
 
     render() {
