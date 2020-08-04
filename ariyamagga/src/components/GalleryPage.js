@@ -12,6 +12,10 @@ class GalleryPage extends React.Component {
         }
     }
 
+    componentDidMount() {
+        
+    }
+
     render() {
 
         return (
