@@ -1,61 +1,57 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Ariyamagga.AriyamaggaFunctions.Classes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
 
-namespace Ariyamagga.GetGalleryImages
-{
-    public static class GetGalleryImages
-    {
-        [FunctionName("GetGalleryImages")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-
+namespace Ariyamagga.GetGalleryImages {
+    public static class GetGalleryImages {
+        [FunctionName ("GetGalleryImages")]
+        public static async Task<IActionResult> Run (
+            [HttpTrigger (AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log) {
+            log.LogInformation ("Starting getting images...");
             //follow best practices when getting connection strings
-            var connectionString = "";
-            CloudStorageAccount backupStorageAccount = CloudStorageAccount.Parse(connectionString);
+            var containerName = "imagegallery";
+            try {
 
-            var backupBlobClient = backupStorageAccount.CreateCloudBlobClient();
-            var backupContainer = backupBlobClient.GetContainerReference("CONTAINER");
+                var connectionString = "DefaultEndpointsProtocol=https;AccountName=ariyamaggasenasuna;AccountKey=sahLxcqBUbxARK6kyNKsLDubiVSepbvLXR47X9UKe5QpIiBtvr/2N6IbMGmbVfUOZyaz4lzKvfchp97QvuCCJg==;EndpointSuffix=core.windows.net";
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
-            BlobContinuationToken blobContinuationToken = null;
-            var blobSegment = await backupContainer.ListBlobsSegmentedAsync( 
-                prefix: null,
-                useFlatBlobListing: true, 
-                blobListingDetails: BlobListingDetails.None,
-                maxResults: null,
-                currentToken: blobContinuationToken,
-                options: null,
-                operationContext: null);
+                var blobClient = storageAccount.CreateCloudBlobClient ();
+                var storageContainer = blobClient.GetContainerReference (containerName);
 
-            foreach (var blob in blobSegment.Results)
-            {
-                //get the url of each blob here
+                BlobContinuationToken blobContinuationToken = null;
+                var blobSegment = await storageContainer.ListBlobsSegmentedAsync (
+                    prefix: null,
+                    useFlatBlobListing: true,
+                    blobListingDetails: BlobListingDetails.None,
+                    maxResults: null,
+                    currentToken: blobContinuationToken,
+                    options: null,
+                    operationContext: null);
 
+                var imageList = new List<Image> ();
+                foreach (var blob in blobSegment.Results) {
+                    //get the url of each blob here
+                    imageList.Add (new Image {
+                        Url = blob.Uri.AbsoluteUri
+                    });
+                }
+                return new OkObjectResult (imageList);
+
+            } catch (Exception ex) {
+                log.LogInformation ($"Error occured trying to get the images from the container {containerName}.\r\nException:{ex}");
+                return new BadRequestResult ();
             }
-
-            return new OkObjectResult(responseMessage);
         }
     }
 }

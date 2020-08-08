@@ -30,7 +30,7 @@ export default class ContactPage extends React.Component {
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
             {
                 crossDomain: true,
-                method: 'GET'
+                method: 'POST'
             })
             .then((response) => response.text())
             .then(data => this.setState({ statusText: data }))
@@ -71,6 +71,7 @@ export default class ContactPage extends React.Component {
             );
         }
 
+        //TODO: add a loading spinner here
         return (
             <div>
                 {this.state.submitted ? <FormSubmittedText /> : <Form />}
