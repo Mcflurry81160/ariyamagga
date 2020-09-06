@@ -17,22 +17,37 @@ class GalleryPage extends React.Component {
         //update the state imageInfo
         //these will be passed in as the photos props in the render method
         console.log("component mounted");
-        
+
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/GetGalleryImages',
             {
                 crossDomain: true,
                 method: 'GET'
             })
             .then((response) => response.json())
-            .then(data => {this.setState({
-                images: data.map(image => ({
+            .then(data => {
+                console.log("data", data)
+                var image = data.map(image => ({
                     src: image.Uri
-                }))
-            })});
-            // .catch((error) => console.error(error))
-            // .finally(() => {
-            //     this.setState({ isLoading: false });
-            // });
+                }));
+
+                var images = [];
+                images.push(image);
+
+        console.log("images", images);
+
+
+                this.setState({
+                    images: images
+                })
+
+        console.log("state", this.state);
+
+            });
+        // .catch((error) => console.error(error))
+        // .finally(() => {
+        //     this.setState({ isLoading: false });
+        // });
+
     }
 
     render() {
@@ -122,7 +137,7 @@ function GetPhotos() {
         //     // width: 4,
         //     // height: 3
         // }
-   
+
 
     ];
 
