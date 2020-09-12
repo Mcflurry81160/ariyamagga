@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AboutPage from './components/AboutPage';
 import GalleryPage from './components/GalleryPage';
 import ContactPage from './components/ContactPage';
-import DonatePage from './components/DonatePage';
+// import DonatePage from './components/DonatePage';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             <Route exact path="/"><AboutPage /></Route>
             <Route path="/about"><AboutPage /></Route>
             <Route path="/gallery"><GalleryPage /></Route>
-            <Route path="/donate"><DonatePage /></Route>
+            {/* <Route path="/donate"><DonatePage /></Route> */}
             <Route path="/contact"><ContactPage /></Route>
           </Switch>
         </Router>
@@ -30,7 +30,8 @@ function App() {
 
 function GetNavBarItems() {
 
-  var navbarOptions = ['About', 'Gallery', 'Donate', 'Contact'];
+  // var navbarOptions = ['About', 'Gallery', 'Donate', 'Contact'];
+  var navbarOptions = ['About', 'Gallery', 'Contact'];
 
   var retNavbarOptions = [];
   for (let i = 0; i < navbarOptions.length; i++) {

@@ -9,6 +9,7 @@ export default class ContactPage extends React.Component {
             firstName: '',
             lastName: '',
             email: '',
+            subject: '',
             message: '',
             isLoading: false,
             submitted: false,
@@ -28,9 +29,18 @@ export default class ContactPage extends React.Component {
         this.setState({ isLoading: true });
 
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
+        // fetch('http://localhost:7071/api/SendEmail',
             {
                 crossDomain: true,
-                method: 'POST'
+                method: 'POST',
+                body: JSON.stringify(
+                {
+                    subject: this.state.subject === null || this.state.subject.trim() === "" ? "Inquiry from " + this.state.firstName + " " + this.fromLastName : this.state.subject,
+                    fromFirstName: this.state.firstName,
+                    fromLastName: this.state.lastName,
+                    fromAddress: this.state.fromAddress,
+                    message: this.state.message,
+                })
             })
             .then((response) => response.text())
             .then(data => this.setState({ statusText: data }))
@@ -56,6 +66,10 @@ export default class ContactPage extends React.Component {
                     <div className="form-group">
                         <label for="name" className="label-basic">Email:</label>
                         <input type="email" className="form-control input-basic" id="email" placeholder="Enter email address" name="email" value={this.state.email} onChange={this.handleChange}></input>
+                    </div>
+                    <div className="form-group">
+                        <label className="label-basic">Subject (Optional)</label>
+                        <input type="text" className="form-control input-basic" placeholder="Enter subject for your message" name="subject" value={this.state.subject} onChange={this.handleChange}></input>
                     </div>
                     <div className="form-group">
                         <label for="message" className="label-basic">Message:</label>

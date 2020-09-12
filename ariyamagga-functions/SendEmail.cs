@@ -19,15 +19,17 @@ namespace Ariyamagga.Contact {
             [HttpTrigger (AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log) {
 
+            log.LogInformation ("Triggerd Azure function to send email");
             string requestBody = await new StreamReader (req.Body).ReadToEndAsync ();
             var emailData = JsonConvert.DeserializeObject<Email> (requestBody);
 
             string sendEmailResult;
 
             try {
+                log.LogInformation ($"Sending email data. Email data:\r\n{requestBody}");
                 var sendEmailResponse = await SendEmailAndHandleResults (emailData);
 
-                if (SuccessStatusCodes.Any(x => sendEmailResponse.StatusCode == x))
+                if (SuccessStatusCodes.Any (x => sendEmailResponse.StatusCode == x))
                     sendEmailResult = "Email was successfully sent";
                 else
                     sendEmailResult = "There was an error sending the email";
@@ -37,6 +39,7 @@ namespace Ariyamagga.Contact {
                 sendEmailResult = $"There was an error sending the email: {ex.Message}";
             }
 
+            log.LogInformation($"Result: {sendEmailResult}");
             return new OkObjectResult (sendEmailResult);
         }
 
@@ -47,9 +50,9 @@ namespace Ariyamagga.Contact {
             var client = new SendGridClient (apiKey);
             var from = new EmailAddress (emailData.FromAddress, "User A");
             var subject = emailData.Subject;
-            var to = new EmailAddress ("k4kavan@gmail.com", "User B");
-            var plainTextContent = emailData.Body;
-            var htmlContent = $"<strong>{emailData.Body}</strong>";
+            var to = new EmailAddress ("k4kavan@gmail.com", "Ariyamagga");
+            var plainTextContent = emailData.Message;
+            var htmlContent = $"<strong>{emailData.Message}</strong>";
             var msg = MailHelper.CreateSingleEmail (from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync (msg);
 
@@ -59,7 +62,9 @@ namespace Ariyamagga.Contact {
 
     public class Email {
         public string Subject { get; set; }
-        public string Body { get; set; }
+        public string Message { get; set; }
         public string FromAddress { get; set; }
+        public string FromFirstName { get; set; }
+        public string FromLastName { get; set; }
     }
 }
