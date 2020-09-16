@@ -29,17 +29,21 @@ namespace Ariyamagga.Contact {
                 log.LogInformation ($"Sending email data. Email data:\r\n{requestBody}");
                 var sendEmailResponse = await SendEmailAndHandleResults (emailData);
 
+                // log.LogInformation($"Email send response: {JsonConvert.SerializeObject(sendEmailResponse)}");
+
                 if (SuccessStatusCodes.Any (x => sendEmailResponse.StatusCode == x))
                     sendEmailResult = "Email was successfully sent";
-                else
-                    sendEmailResult = "There was an error sending the email";
+                else{
+                    sendEmailResult = $"There was an error sending the email";
+                }
+                    
 
             } catch (Exception ex) {
 
                 sendEmailResult = $"There was an error sending the email: {ex.Message}";
             }
 
-            log.LogInformation($"Result: {sendEmailResult}");
+            log.LogInformation ($"Result: {sendEmailResult}");
             return new OkObjectResult (sendEmailResult);
         }
 
@@ -48,9 +52,9 @@ namespace Ariyamagga.Contact {
         public async Task<Response> SendEmailAndHandleResults (Email emailData) {
             var apiKey = Environment.GetEnvironmentVariable ("SendGridEmailApiKey");
             var client = new SendGridClient (apiKey);
-            var from = new EmailAddress (emailData.FromAddress, "User A");
+            var from = new EmailAddress (emailData.FromAddress, $"{emailData.FromFirstName} {emailData.FromLastName}");
             var subject = emailData.Subject;
-            var to = new EmailAddress ("k4kavan@gmail.com", "Ariyamagga");
+            var to = new EmailAddress ("ariyamagga@gmail.com", "Ariyamagga");
             var plainTextContent = emailData.Message;
             var htmlContent = $"<strong>{emailData.Message}</strong>";
             var msg = MailHelper.CreateSingleEmail (from, to, subject, plainTextContent, htmlContent);

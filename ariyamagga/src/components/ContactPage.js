@@ -20,27 +20,38 @@ export default class ContactPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
+    handleChange({target}) {
+        const { name, value } = target;     
+        
+        // console.log("Name:", name)
+        // console.log("Value:", value)
+
+        this.setState({
+            [name]: value
+        });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         this.setState({ isLoading: true });
 
+        var postObj =  {
+            subject: this.state.subject === null || this.state.subject.trim() === "" ? "Inquiry from " + this.state.firstName + " " + this.fromLastName : this.state.subject,
+            fromFirstName: this.state.firstName,
+            fromLastName: this.state.lastName,
+            fromAddress: this.state.email,
+            message: this.state.message,
+        };
+
+        console.log("Posted object:", postObj);
+        console.log("Posted object stringify:", JSON.stringify(postObj));
+
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
         // fetch('http://localhost:7071/api/SendEmail',
             {
                 crossDomain: true,
                 method: 'POST',
-                body: JSON.stringify(
-                {
-                    subject: this.state.subject === null || this.state.subject.trim() === "" ? "Inquiry from " + this.state.firstName + " " + this.fromLastName : this.state.subject,
-                    fromFirstName: this.state.firstName,
-                    fromLastName: this.state.lastName,
-                    fromAddress: this.state.fromAddress,
-                    message: this.state.message,
-                })
+                body: JSON.stringify(postObj)
             })
             .then((response) => response.text())
             .then(data => this.setState({ statusText: data }))
@@ -51,10 +62,16 @@ export default class ContactPage extends React.Component {
     }
 
     render() {
-        const Form = () => {
 
+        const FormSubmittedText = () => {
             return (
-                <form onSubmit={this.handleSubmit}>
+                <div>{this.state.statusText}</div>
+            );
+        }
+
+        return (
+            <div>
+                {this.state.submitted ? <FormSubmittedText /> : <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label className="label-basic">First Name:</label>
                         <input type="text" className="form-control input-basic" placeholder="Enter first name" name="firstName" value={this.state.firstName} onChange={this.handleChange}></input>
@@ -65,7 +82,7 @@ export default class ContactPage extends React.Component {
                     </div>
                     <div className="form-group">
                         <label for="name" className="label-basic">Email:</label>
-                        <input type="email" className="form-control input-basic" id="email" placeholder="Enter email address" name="email" value={this.state.email} onChange={this.handleChange}></input>
+                        <input type="email" className="form-control input-basic" placeholder="Enter email address" name="email" value={this.state.email} onChange={this.handleChange}></input>
                     </div>
                     <div className="form-group">
                         <label className="label-basic">Subject (Optional)</label>
@@ -73,22 +90,10 @@ export default class ContactPage extends React.Component {
                     </div>
                     <div className="form-group">
                         <label for="message" className="label-basic">Message:</label>
-                        <textarea type="text" className="form-control input-basic" id="message" placeholder="Enter message" name="message" value={this.state.message} onChange={this.handleChange}></textarea>
+                        <textarea type="text" className="form-control input-basic" placeholder="Enter message" name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                     </div>
                     <input type="submit" className="btn btn-primary" value="Submit form"></input>
-                </form>);
-        }
-
-        const FormSubmittedText = () => {
-            return (
-                <div>{this.state.statusText}</div>
-            );
-        }
-
-        //TODO: add a loading spinner here
-        return (
-            <div>
-                {this.state.submitted ? <FormSubmittedText /> : <Form />}
+                </form>}
             </div>
         )
     }
