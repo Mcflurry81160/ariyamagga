@@ -2,7 +2,7 @@
   "name": "ariyamagga",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mcflurry81160.github.io/ariyamagga/ariyamagga",
+  "homepage": "https://mcflurry81160.github.io/ariyamagga/ariyamagga/public",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -40,3 +40,4 @@
     ]
   }
 }
+
