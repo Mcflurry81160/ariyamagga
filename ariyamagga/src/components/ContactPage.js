@@ -43,8 +43,8 @@ export default class ContactPage extends React.Component {
             message: this.state.message,
         };
 
-        console.log("Posted object:", postObj);
-        console.log("Posted object stringify:", JSON.stringify(postObj));
+        // console.log("Posted object:", postObj);
+        // console.log("Posted object stringify:", JSON.stringify(postObj));
 
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
         // fetch('http://localhost:7071/api/SendEmail',
