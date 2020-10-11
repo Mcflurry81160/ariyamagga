@@ -22,9 +22,13 @@ namespace Ariyamagga.GetGalleryImages {
             //follow best practices when getting connection strings
             var containerName = "imagegallery";
             try {
-                //TODO:save connection string in vault and reference it here
-                var connectionString = "DefaultEndpointsProtocol=https;AccountName=ariyamaggasenasuna;AccountKey=sahLxcqBUbxARK6kyNKsLDubiVSepbvLXR47X9UKe5QpIiBtvr/2N6IbMGmbVfUOZyaz4lzKvfchp97QvuCCJg==;EndpointSuffix=core.windows.net";
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                var connectionString = Environment.GetEnvironmentVariable ("AriyamaggaStorageConnectionString");
+                if (connectionString == null) {
+                    log.LogInformation ("There was an error getting environment variables");
+                    return new BadRequestResult ();
+                }
+
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse (connectionString);
 
                 var blobClient = storageAccount.CreateCloudBlobClient ();
                 var storageContainer = blobClient.GetContainerReference (containerName);

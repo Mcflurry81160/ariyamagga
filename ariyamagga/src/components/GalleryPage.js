@@ -10,7 +10,7 @@ const GalleryPage = () => {
     return (
         <div>
             <ImageGrid setSelectedImage={setSelectedImage} />
-            { selectedImage && <ImageModal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+            { selectedImage && <ImageModal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}            
         </div>
 
     );

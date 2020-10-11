@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from "framer-motion";
+import { Spinner } from 'react-bootstrap';
 
 const ImageGrid = ({setSelectedImage}) => {
 
@@ -23,12 +25,18 @@ const ImageGrid = ({setSelectedImage}) => {
 
     return (
         <div className='image-grid'>
+            {!images && 
+            <Spinner className="spinner" animation="border" role="status" variant="secondary">
+                <span className="sr-only">Loading...</span>
+            </Spinner>}
             {images && images.map(image => (
-                <div className='image-wrap' key={image.id} onClick={() => { setSelectedImage(image.url) }}>
-                    <img src={image.url} alt="" />
-                </div>
+                <motion.div className='image-wrap' key={image.id} 
+                    whileHover={{opacity: 1}} onClick={() => { setSelectedImage(image.url) }}>
+                    <motion.img src={image.url} alt="" 
+                    initial={{opacity:0}}
+                    animate={{opacity:1}}/>
+                </motion.div>
             ))}
-            {!images && <div>Getting images</div>}
         </div>
     );
 }

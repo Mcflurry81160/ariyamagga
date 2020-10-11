@@ -54,7 +54,7 @@ namespace Ariyamagga.Contact {
             var client = new SendGridClient (apiKey);
             var from = new EmailAddress (emailData.FromAddress, $"{emailData.FromFirstName} {emailData.FromLastName}");
             var subject = emailData.Subject;
-            var to = new EmailAddress ("ariyamagga@gmail.com", "Ariyamagga");
+            var to = new EmailAddress ("ariyamaggas@gmail.com", "Ariyamagga");
             var plainTextContent = emailData.Message;
             var htmlContent = $"<strong>{emailData.Message}</strong>";
             var msg = MailHelper.CreateSingleEmail (from, to, subject, plainTextContent, htmlContent);

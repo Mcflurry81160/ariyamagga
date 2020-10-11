@@ -1,5 +1,6 @@
 import React from 'react';
 import './ImageModal.css';
+import { motion } from "framer-motion";
 
 const ImageModal = ({ selectedImage, setSelectedImage }) => {
 
@@ -7,10 +8,12 @@ const ImageModal = ({ selectedImage, setSelectedImage }) => {
         setSelectedImage(null);
     }
 
-    return(
-        <div className="backdrop" onClick={handleClick}>
-            <img src={selectedImage} alt=""></img>
-        </div>
+    return (
+        <motion.div className="backdrop" onClick={handleClick}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}>
+            <img src={selectedImage} alt="" />
+        </motion.div>
     );
 }
 
