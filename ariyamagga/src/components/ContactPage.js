@@ -1,4 +1,5 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 import './ContactPage.css';
 
 export default class ContactPage extends React.Component {
@@ -20,9 +21,9 @@ export default class ContactPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange({target}) {
-        const { name, value } = target;     
-        
+    handleChange({ target }) {
+        const { name, value } = target;
+
         // console.log("Name:", name)
         // console.log("Value:", value)
 
@@ -35,7 +36,7 @@ export default class ContactPage extends React.Component {
         event.preventDefault();
         this.setState({ isLoading: true });
 
-        var postObj =  {
+        var postObj = {
             subject: this.state.subject === null || this.state.subject.trim() === "" ? "Inquiry from " + this.state.firstName + " " + this.fromLastName : this.state.subject,
             fromFirstName: this.state.firstName,
             fromLastName: this.state.lastName,
@@ -43,11 +44,8 @@ export default class ContactPage extends React.Component {
             message: this.state.message,
         };
 
-        // console.log("Posted object:", postObj);
-        // console.log("Posted object stringify:", JSON.stringify(postObj));
-
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/SendEmail',
-        // fetch('http://localhost:7071/api/SendEmail',
+            // fetch('http://localhost:7071/api/SendEmail',
             {
                 crossDomain: true,
                 method: 'POST',
@@ -57,7 +55,7 @@ export default class ContactPage extends React.Component {
             .then(data => this.setState({ statusText: data }))
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false, submitted: true });
+                this.setState({ isLoading: false, submitted: true, firstName: '', lastName: '', email: '', subject:'', message: '' });
             });
     }
 
@@ -71,7 +69,10 @@ export default class ContactPage extends React.Component {
 
         return (
             <div>
-                {this.state.submitted ? <FormSubmittedText /> : <form onSubmit={this.handleSubmit}>
+                {this.state.isLoading && <Spinner className="spinner" animation="border" role="status" variant="secondary">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>}
+                {!this.state.isLoading && <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label className="label-basic">First Name:</label>
                         <input type="text" className="form-control input-basic" placeholder="Enter first name" name="firstName" value={this.state.firstName} onChange={this.handleChange}></input>
@@ -92,8 +93,9 @@ export default class ContactPage extends React.Component {
                         <label for="message" className="label-basic">Message:</label>
                         <textarea type="text" className="form-control input-basic" placeholder="Enter message" name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                     </div>
-                    <input type="submit" className="btn btn-primary" value="Submit form"></input>
+                    <input type="submit" className="btn btn-primary" value="Submit Inquiry"></input>
                 </form>}
+                {this.state.submitted && <FormSubmittedText />}
             </div>
         )
     }

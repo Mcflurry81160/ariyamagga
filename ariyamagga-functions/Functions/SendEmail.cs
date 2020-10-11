@@ -29,18 +29,15 @@ namespace Ariyamagga.Contact {
                 log.LogInformation ($"Sending email data. Email data:\r\n{requestBody}");
                 var sendEmailResponse = await SendEmailAndHandleResults (emailData);
 
-                // log.LogInformation($"Email send response: {JsonConvert.SerializeObject(sendEmailResponse)}");
-
                 if (SuccessStatusCodes.Any (x => sendEmailResponse.StatusCode == x))
-                    sendEmailResult = "Email was successfully sent";
+                    sendEmailResult = "Your inquiry was successfully submitted. Someone will be in touch with you shortly.";
                 else{
-                    sendEmailResult = $"There was an error sending the email";
-                }
-                    
+                    sendEmailResult = $"There was an error sending submitting your inquiry. Please try again later.";
+                }                    
 
             } catch (Exception ex) {
 
-                sendEmailResult = $"There was an error sending the email: {ex.Message}";
+                sendEmailResult = $"There was an error submitting your inquiry: {ex.Message}";
             }
 
             log.LogInformation ($"Result: {sendEmailResult}");
