@@ -16,10 +16,9 @@ function App() {
         <Router>
           <Navbar items={GetNavBarItems()} />
           <Switch>
-            <Route exact path="/"><AboutPage /></Route>
+            <Route path="/"><AboutPage /></Route>
             <Route path="/about"><AboutPage /></Route>
             <Route path="/gallery"><GalleryPage /></Route>
-            {/* <Route path="/donate"><DonatePage /></Route> */}
             <Route path="/contact"><ContactPage /></Route>
           </Switch>
         </Router>
