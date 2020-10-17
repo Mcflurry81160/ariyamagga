@@ -10,7 +10,7 @@ class Navbar extends React.Component {
     }
 
     clicked(event, index) {
-        console.log("clicked", this.state);
+        // console.log("clicked", this.state);
         event.stopPropagation();
         this.setState({ focused: index });
     }

@@ -17,7 +17,7 @@ const ImageGrid = ({setSelectedImage}) => {
                 jsonData.forEach((doc, index) => {
                     documents.push({ url: doc.url, id: index });
                 });
-                console.log(documents);
+                // console.log(documents);
                 setImages(documents);
             })
     }, []);
