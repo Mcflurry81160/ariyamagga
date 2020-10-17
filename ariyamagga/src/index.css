@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: #e2e0dc; */
 }
 
 code {
@@ -14,10 +13,9 @@ code {
 }
 
 .spinner {
-  margin: auto;
-  width: 50%;
-  padding: 50px;
-  margin: 50%;
-  position: relative;
-  top: 50%;
+  /* margin: auto;
+  height: 50px; */
+  /* padding: 50px; */
+  /* position: relative;
+  top: 50%; */
 }

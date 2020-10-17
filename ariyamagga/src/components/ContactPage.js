@@ -67,6 +67,8 @@ export default class ContactPage extends React.Component {
             );
         }
 
+        //TODO: validation
+        //animation on the button on hover
         return (
             <div>
                 {this.state.isLoading && <Spinner className="spinner" animation="border" role="status" variant="secondary">
@@ -93,7 +95,7 @@ export default class ContactPage extends React.Component {
                         <label for="message" className="label-basic">Message:</label>
                         <textarea type="text" className="form-control input-basic" placeholder="Enter message" name="message" value={this.state.message} onChange={this.handleChange}></textarea>
                     </div>
-                    <input type="submit" className="btn btn-primary" value="Submit Inquiry"></input>
+                    <input type="submit" className="btn-submit" value="Submit Inquiry"></input>
                 </form>}
                 {this.state.submitted && <FormSubmittedText />}
             </div>

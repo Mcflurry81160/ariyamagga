@@ -16,7 +16,7 @@ function App() {
         <Router>
           <Navbar items={GetNavBarItems()} />
           <Switch>
-            <Route path="/"><AboutPage /></Route>
+            <Route exact path="/"><AboutPage /></Route>
             <Route path="/about"><AboutPage /></Route>
             <Route path="/gallery"><GalleryPage /></Route>
             <Route path="/contact"><ContactPage /></Route>
@@ -28,8 +28,6 @@ function App() {
 }
 
 function GetNavBarItems() {
-
-  // var navbarOptions = ['About', 'Gallery', 'Donate', 'Contact'];
   var navbarOptions = ['About', 'Gallery', 'Contact'];
 
   var retNavbarOptions = [];
