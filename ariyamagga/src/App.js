@@ -5,8 +5,8 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AboutPage from './components/AboutPage';
 import GalleryPage from './components/GalleryPage';
+import SupportUsPage from './components/SupportUsPage';
 import ContactPage from './components/ContactPage';
-// import DonatePage from './components/DonatePage';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
             <Route exact path="/"><AboutPage /></Route>
             <Route path="/about"><AboutPage /></Route>
             <Route path="/gallery"><GalleryPage /></Route>
+            <Route path="/support"><SupportUsPage /></Route>
             <Route path="/contact"><ContactPage /></Route>
           </Switch>
         </Router>
@@ -28,7 +29,7 @@ function App() {
 }
 
 function GetNavBarItems() {
-  var navbarOptions = ['About', 'Gallery', 'Contact'];
+  var navbarOptions = ['About', 'Gallery', 'Support', 'Contact'];
 
   var retNavbarOptions = [];
   for (let i = 0; i < navbarOptions.length; i++) {
