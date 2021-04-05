@@ -23,7 +23,10 @@ export default class SupportUsPage extends React.Component {
           <div className="project-sub-title">Bank A/C details:</div>
           <div className="project-bank-details">
             <div>Bank: Bank Of Ceylon</div>
-            <div>Branch: abc</div>
+            <div>Branch: Second City Branch, Kurunegala</div>
+            <div>Bank Code: 7010</div>
+            <div>Branch Code: 513</div>
+            <div>Swift Code: BCEYLKLX</div>
             <div>A/C: 71547991</div>
           </div>
         </div>
