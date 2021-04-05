@@ -16,7 +16,7 @@ export default class SupportUsPage extends React.Component {
 
     const ChethiyaProject = () => {
       return (<div>
-        <h4>Chethiya Project</h4>
+        <h4>Chethiya (ඡෛත්‍ය) Project</h4>
         <div className="project-image">image here</div>
         <div>This is a small description about the project</div>
         <div className="project-bank-details-section">
