@@ -20,7 +20,13 @@ namespace Ariyamagga.GetGalleryImages {
             ILogger log) {
             log.LogInformation ("Starting getting images...");
             //follow best practices when getting connection strings
-            var containerName = "imagegallery";
+            if (req.Body == null) {
+                log.LogError ("Did not have a valid container name...");
+                return new BadRequestResult ();
+            }
+
+            StreamReader reader = new StreamReader (req.Body);
+            string containerName = reader.ReadToEnd ();
             try {
                 var connectionString = Environment.GetEnvironmentVariable ("AriyamaggaStorageConnectionString");
                 if (connectionString == null) {
@@ -53,7 +59,7 @@ namespace Ariyamagga.GetGalleryImages {
                 return new OkObjectResult (imageList);
 
             } catch (Exception ex) {
-                log.LogInformation ($"Error occured trying to get the images from the container {containerName}.\r\nException:{ex}");
+                log.LogError ($"Error occurred trying to get the images from the container {containerName}.\r\nException:{ex}");
                 return new BadRequestResult ();
             }
         }

@@ -19,8 +19,8 @@ function App() {
             <Route exact path="/"><AboutPage /></Route>
             <Route path="/about"><AboutPage /></Route>
             <Route path="/gallery"><GalleryPage /></Route>
-            <Route path="/support"><SupportUsPage /></Route>
-            <Route path="/contact"><ContactPage /></Route>
+            <Route path="/supportus"><SupportUsPage /></Route>
+            <Route path="/contactus"><ContactPage /></Route>
           </Switch>
         </Router>
       </div>
@@ -29,14 +29,14 @@ function App() {
 }
 
 function GetNavBarItems() {
-  var navbarOptions = ['About', 'Gallery', 'Support', 'Contact'];
+  var navbarOptions = ['About', 'Gallery', 'Support Us', 'Contact Us'];
 
   var retNavbarOptions = [];
   for (let i = 0; i < navbarOptions.length; i++) {
     var navbarItem = {
       itemName: navbarOptions[i],
       itemIndex: i,
-      navbarLinkPath: navbarOptions[i].toLowerCase()
+      navbarLinkPath: navbarOptions[i].toLowerCase().replace(" ","")
     }
     
     retNavbarOptions.push(navbarItem);
