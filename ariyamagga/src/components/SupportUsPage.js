@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import './SupportUsPage.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -18,7 +18,8 @@ export default class SupportUsPage extends React.Component {
       return (<div>
         <h4>Chethiya (ඡෛත්‍ය) Project</h4>
         <div className="project-image">image here</div>
-        <div>This is a small description about the project</div>
+        <div>In order to meet the long felt need of a Chethiya to complete the places of worship, in 2019 it was decided to build s suitably designed Chethiya. the foundation stone was laid on the 9th March 2020 and soon came to a halt due to COVID19 related restrictions. 
+          Resumption of work took place in March 2021 after a gap of one year. Finishing work including topping and unveiling of pinnacle is still to be done.</div>
         <div className="project-bank-details-section">
           <div className="project-sub-title">Bank A/C details:</div>
           <div className="project-bank-details">

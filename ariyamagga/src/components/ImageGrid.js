@@ -7,7 +7,6 @@ const ImageGrid = ({setSelectedImage}) => {
     const [images, setImages] = useState(null);
 
     useEffect(() => {
-        console.log("inside");
         fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/GetGalleryImages', {
             crossDomain: true,
             method: 'GET'
