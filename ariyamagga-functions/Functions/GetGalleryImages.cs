@@ -19,13 +19,7 @@ namespace Ariyamagga.GetGalleryImages {
             [HttpTrigger (AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log) {
             log.LogInformation ("Starting getting images...");
-            if (req.Body == null) {
-                log.LogError ("Did not have a valid container name...");
-                return new BadRequestResult ();
-            }
 
-            StreamReader reader = new StreamReader (req.Body);
-            string containerName = reader.ReadToEnd ();
             try {
                 var connectionString = Environment.GetEnvironmentVariable ("AriyamaggaStorageConnectionString");
                 if (connectionString == null) {
@@ -35,10 +29,7 @@ namespace Ariyamagga.GetGalleryImages {
 
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer storageContainer = blobClient.GetContainerReference(containerName);
-                CloudBlockBlob cloudBlockBlob = storageContainer.GetBlockBlobReference("IMG_7357.JPG");
-
-                var absoluteUrl = cloudBlockBlob.Uri.AbsoluteUri;
+                CloudBlobContainer storageContainer = blobClient.GetContainerReference("imagegallery");
 
                 BlobContinuationToken blobContinuationToken = null;
                 var blobSegment = await storageContainer.ListBlobsSegmentedAsync (
@@ -60,7 +51,7 @@ namespace Ariyamagga.GetGalleryImages {
                 return new OkObjectResult (imageList);
 
             } catch (Exception ex) {
-                log.LogError ($"Error occurred trying to get the images from the container {containerName}.\r\nException:{ex}");
+                log.LogError ($"Error occurred trying to get the images from the container imageGallery.\r\nException:{ex}");
                 return new BadRequestResult ();
             }
         }
