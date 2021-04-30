@@ -12,14 +12,21 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 
-namespace Ariyamagga.GetGalleryImages {
-    public static class GetGalleryImages {
-        [FunctionName ("GetGalleryImages")]
+namespace Ariyamagga.GetBlobInfo {
+    public static class GetBlobInfo {
+        [FunctionName ("GetBlobInfo")]
         public static async Task<IActionResult> Run (
             [HttpTrigger (AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log) {
             log.LogInformation ("Starting getting images...");
+            if (req.Body == null) {
+                log.LogError ("Did not have a valid container name...");
+                return new BadRequestResult ();
+            }
 
+            StreamReader reader = new StreamReader (req.Body);
+            string blobInfoString = reader.ReadToEnd ();
+            BlobInfo blobInfo = JsonConvert.DeserializeObject<BlobInfo>(blobInfoString);
             try {
                 var connectionString = Environment.GetEnvironmentVariable ("AriyamaggaStorageConnectionString");
                 if (connectionString == null) {
@@ -29,31 +36,21 @@ namespace Ariyamagga.GetGalleryImages {
 
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer storageContainer = blobClient.GetContainerReference("imagegallery");
+                CloudBlobContainer storageContainer = blobClient.GetContainerReference(blobInfo.ContainerName);
+                CloudBlockBlob cloudBlockBlob = storageContainer.GetBlockBlobReference(blobInfo.ImageName);
 
-                BlobContinuationToken blobContinuationToken = null;
-                var blobSegment = await storageContainer.ListBlobsSegmentedAsync (
-                    prefix: null,
-                    useFlatBlobListing: true,
-                    blobListingDetails: BlobListingDetails.None,
-                    maxResults: null,
-                    currentToken: blobContinuationToken,
-                    options: null,
-                    operationContext: null);
-
-                var imageList = new List<Image> ();
-                foreach (var blob in blobSegment.Results) {
-                    //get the url of each blob here
-                    imageList.Add (new Image {
-                        Url = blob.Uri.AbsoluteUri
-                    });
-                }
-                return new OkObjectResult (imageList);
+                var absoluteUrl = cloudBlockBlob.Uri.AbsoluteUri;
+                return new OkObjectResult (absoluteUrl);
 
             } catch (Exception ex) {
-                log.LogError ($"Error occurred trying to get the images from the container imageGallery.\r\nException:{ex}");
+                log.LogError ($"Error occurred trying to get the images from the container {blobInfo.ContainerName}.\r\nException:{ex}");
                 return new BadRequestResult ();
             }
         }
+    }
+
+    public class BlobInfo {
+        public string ContainerName { get; set; }
+        public string ImageName { get; set; }
     }
 }

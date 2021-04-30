@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import './SupportUsPage.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,8 +8,22 @@ export default class SupportUsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      chethiyaProjectImageurl: null
     }
+  }
+
+  componentDidMount() {
+    const requestOptions = {
+      crossDomain: true,
+      method: 'POST',
+      body: JSON.stringify({ containerName: 'project-thumbnails', imageName: 'IMG_7357.JPG' })
+    }
+
+    fetch("https://func-app-ariyamaggasenasuna.azurewebsites.net/api/GetBlobInfo", requestOptions)
+      .then((response) => response.text())
+      .then((responseText) => {
+        this.setState({ chethiyaProjectImageurl: responseText });
+        console.log("url", this.state.chethiyaProjectImageurl)});
   }
 
   render() {
@@ -17,9 +31,10 @@ export default class SupportUsPage extends React.Component {
     const ChethiyaProject = () => {
       return (<div>
         <h4>Chethiya (ඡෛත්‍ය) Project</h4>
-        <div className="project-image">image here</div>
-        <div>In order to meet the long felt need of a Chethiya to complete the places of worship, in 2019 it was decided to build s suitably designed Chethiya. the foundation stone was laid on the 9th March 2020 and soon came to a halt due to COVID19 related restrictions. 
-          Resumption of work took place in March 2021 after a gap of one year. Finishing work including topping and unveiling of pinnacle is still to be done.</div>
+        <div>
+          <img className="project-image" alt="" src={this.state.chethiyaProjectImageurl}></img>
+        </div>
+        <div>In order to meet the long felt need of a Chethiya to complete the places of worship, in 2019 it was decided to build a suitably designed Chethiya. The foundation stone was laid on the 9th March 2020 and soon came to a halt due to COVID19 related restrictions. Resumption of work took place in March 2021 after a gap of one year. Finishing work including topping and unveiling of pinnacle is still to be done.</div>
         <div className="project-bank-details-section">
           <div className="project-sub-title">Bank A/C details:</div>
           <div className="project-bank-details">
@@ -31,7 +46,7 @@ export default class SupportUsPage extends React.Component {
             <div>A/C: 71547991</div>
           </div>
         </div>
-        <div className="project-sub-title">Download brochure <a href="https://ariyamaggasenasuna.blob.core.windows.net/project-chethiya/CamScanner 03-28-2021 12.25.pdf">here</a></div>
+        <div className="project-sub-title">Download brochure <a href="https://ariyamaggasenasuna.blob.core.windows.net/project-001-chethiya/chethiya-brochure.pdf">here</a></div>
       </div>);
     }
 
