@@ -8,16 +8,33 @@ export default class SupportUsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      chethiyaProjectImageurl: null
     }
   }
 
-  render() {
+  componentDidMount() {
+    const requestOptions = {
+      crossDomain: true,
+      method: 'POST',
+      body: JSON.stringify({ containerName: 'React POST Request Example', imageName: 'IMG_7357.JPG' })
+    }
 
+    fetch('https://func-app-ariyamaggasenasuna.azurewebsites.net/api/GetBlobInfo', requestOptions)
+    .then((response) => response.json())
+    .then((jsonData) => {
+        this.setState({chethiyaProjectImageurl = jsonData[0].doc.url} )
+    })
+
+  }
+
+  render() {
+    
     const ChethiyaProject = () => {
       return (<div>
         <h4>Chethiya (ඡෛත්‍ය) Project</h4>
-        <div className="project-image">image here</div>
+        <div className="project-image">
+          <img src={this.state.chethiyaProjectImageurl}></img>
+        </div>
         <div>In order to meet the long felt need of a Chethiya to complete the places of worship, in 2019 it was decided to build s suitably designed Chethiya. the foundation stone was laid on the 9th March 2020 and soon came to a halt due to COVID19 related restrictions. 
           Resumption of work took place in March 2021 after a gap of one year. Finishing work including topping and unveiling of pinnacle is still to be done.</div>
         <div className="project-bank-details-section">
