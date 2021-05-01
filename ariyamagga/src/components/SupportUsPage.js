@@ -46,7 +46,7 @@ export default class SupportUsPage extends React.Component {
             <div>A/C: 71547991</div>
           </div>
         </div>
-        <div className="project-sub-title">Download brochure <a href="https://ariyamaggasenasuna.blob.core.windows.net/project-001-chethiya/chethiya-brochure.pdf" target="_blank">here</a></div>
+        <div className="project-sub-title">Download brochure <a href="https://ariyamaggasenasuna.blob.core.windows.net/project-001-chethiya/chethiya-brochure.pdf" target="_blank" rel="noopener noreferrer">here</a></div>
       </div>);
     }
 
